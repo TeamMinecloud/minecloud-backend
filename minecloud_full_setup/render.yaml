@@ -1,18 +1,14 @@
 services:
-  # 1) Managed Redis
   - type: redis
     name: minecloud-redis
-    region: frankfurt          # change if you prefer
-    plan: starter              # "starter" is fine to begin with
+    region: frankfurt
+    plan: starter
     maxmemoryPolicy: allkeys-lru
 
-  # 2) Web API (Node.js)
   - type: web
     name: minecloud-api
     region: frankfurt
     runtime: docker
-    repo: https://github.com/your-user/your-repo   # Render fills this automatically if you deploy from the repo
-    branch: main
     rootDirectory: minecloud-api
     dockerfilePath: Dockerfile
     autoDeploy: true
@@ -29,13 +25,10 @@ services:
           type: redis
           property: connectionString
 
-  # 3) Background Worker (Java runner)
   - type: worker
     name: minecloud-runner
     region: frankfurt
     runtime: docker
-    repo: https://github.com/your-user/your-repo
-    branch: main
     rootDirectory: minecloud-runner
     dockerfilePath: Dockerfile
     autoDeploy: true
@@ -54,7 +47,6 @@ services:
           name: minecloud-redis
           type: redis
           property: connectionString
-    # Persist worlds/mods between deploys
     disk:
       name: mc-data
       mountPath: /data
