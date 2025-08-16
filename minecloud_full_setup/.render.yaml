@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: minecloud-api
+    env: node
+    buildCommand: cd minecloud-api && npm install
+    startCommand: cd minecloud-api && node src/index.js
+    plan: free
+
+  - type: worker
+    name: minecloud-runner
+    env: node
+    buildCommand: cd minecloud-runner && npm install
+    startCommand: cd minecloud-runner && node worker.js
+    plan: free
